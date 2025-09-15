@@ -7,12 +7,16 @@ export default class OutlinePass extends Pass {
     fsQuad: FullScreenQuad
     private FBO: THREE.WebGLRenderTarget
     private depthMaterial: MeshDepthMaterial
+    private scene: THREE.Scene
+    private camera: THREE.PerspectiveCamera
 
-    constructor(private scene: THREE.Scene,
-                private camera: THREE.PerspectiveCamera,
+    constructor(scene: THREE.Scene,
+                camera: THREE.PerspectiveCamera,
                 width: number, height: number) {
         super()
 
+        this.scene = scene
+        this.camera = camera
         this.depthMaterial = new MeshDepthMaterial()
         this.material = new THREE.ShaderMaterial({
             uniforms: {
@@ -61,8 +65,7 @@ void main() {
     }
 
     render(renderer: THREE.WebGLRenderer,
-           writeBuffer: THREE.WebGLRenderTarget,
-           readBuffer: THREE.WebGLRenderTarget) {
+           writeBuffer: THREE.WebGLRenderTarget) {
 
         {
             renderer.setRenderTarget(this.FBO)
