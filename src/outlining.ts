@@ -10,7 +10,6 @@ btnSave.addEventListener('click', () => {
     const link = document.createElement('a')
     link.download = 'Outline.png'
     const canvas = canvasWrapper.querySelector<HTMLCanvasElement>('canvas')!
-    console.log(canvas)
     link.href = canvas.toDataURL('image/png')
     link.click()
 })

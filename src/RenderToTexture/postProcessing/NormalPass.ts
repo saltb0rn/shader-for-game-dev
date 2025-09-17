@@ -33,7 +33,7 @@ void main() {
 varying vec2 vUV;
 uniform sampler2D tNormal;
 void main() {
-    gl_FragColor = texture2D(tNormal, vUV) * 2.0 - 1.0;
+  gl_FragColor = vec4(texture2D(tNormal, vUV).xyz * 2.0 - 1.0, 1.0);
 }
 `
         })

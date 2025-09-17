@@ -16,10 +16,10 @@ float getLinearDepth(sampler2D t, vec2 uv) {
 }
 
 float luma(vec3 color) {
-  const vec3 magic = vec3(0.2125, 0.7154, 0.0721);
-  return dot(magic, color);
+  return dot(vec3(0.2125, 0.7154, 0.0721), color);
 }
 
+// 卷积运算符
 float convolution(vec2 uv, float[9] kernel, float[9] pixels) {
   float conv = 0.0;
   for (int i = 0; i <= 2; i++) {
@@ -50,25 +50,26 @@ void main () {
       // float l = luma(2.0 * texture2D(tNormal, coord).xyz - 1.0);
       float l = luma(texture2D(tNormal, coord).xyz);
       // 只提取外轮廓
-      attrs[index] += 50.0 * d;
+      attrs[index] += 25.0 * d;
       // 只提取内轮廓
       attrs[index] += l;
+      // 卷积运算满足分配律: F * (G1 + G2) = F * G1 + F * G2
     }
   }
 
   float kernelX[9] = float[9](-1.0, 0.0, 1.0, -2.0, 0.0, 2.0, -1.0, 0.0, 1.0);
   float kernelY[9] = float[9](1.0, 2.0, 1.0, 0.0, 0.0, 0.0, -1.0, -2.0, -1.0);
-  
+
   float convX = convolution(uv, kernelX, attrs);
   float convY = convolution(uv, kernelY, attrs);
   float g = sqrt(convX * convX + convY * convY);
 
-  // 生成深度贴图
+  // 1. 显示深度贴图
   // gl_FragColor = vec4(vec3(getLinearDepth(tDepth, uv)), 1.0);
-  // 生成法线亮度贴图
+  // 2. 显示法线亮度贴图
   // gl_FragColor = vec4(vec3(luma(texture2D(tNormal, uv).xyz)), 1.0);
-  // 生成轮廓图
-  gl_FragColor = vec4(1.0 - vec3(g), 1.0);
-  // gl_FragColor = mix(color, outlineColor, g);
-
+  // 3. 显示轮廓图
+  // gl_FragColor = vec4(1.0 - vec3(g), 1.0);
+  // 4. 对场景进行描边
+  gl_FragColor = mix(color, outlineColor, g);
 }
