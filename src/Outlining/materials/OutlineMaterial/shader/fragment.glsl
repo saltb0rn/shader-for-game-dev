@@ -10,8 +10,8 @@ float getLinearDepth(sampler2D t, vec2 uv) {
   float ndcZ = 2.0 * texture2D(t, uv).r - 1.0;
   float viewZ = 2.0 * uCameraNear * uCameraFar /
     (ndcZ * (uCameraFar - uCameraNear) - (uCameraNear + uCameraFar));
-  float modelZ = -viewZ;
-  float linearDepth = (modelZ - uCameraNear) / (uCameraFar - uCameraNear);
+  float linearViewDepth = -viewZ;
+  float linearDepth = (linearViewDepth - uCameraNear) / (uCameraFar - uCameraNear);
   return linearDepth;
 }
 

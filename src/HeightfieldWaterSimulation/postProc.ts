@@ -3,7 +3,6 @@ import Access from './access.ts'
 import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js'
 import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js'
 import { OutputPass } from 'three/examples/jsm/postprocessing/OutputPass.js'
-import OutlinePass from './postProcessing/OutlinePass.ts'
 
 export default class {
 
@@ -18,11 +17,7 @@ export default class {
 
         Access.postProcesser = new EffectComposer(Access.renderer!, this.target)
 
-        const outlinePass = new OutlinePass(Access.scene!, Access.camera!,
-                                            width * samples, height * samples)
-
         Access.postProcesser.addPass(new RenderPass(Access.scene!, Access.camera!));
-        Access.postProcesser.addPass(outlinePass)
         Access.postProcesser.addPass(new OutputPass())
 
         Access.on('postProcessing', (_1: number, _2: number, isResized: boolean) => {
