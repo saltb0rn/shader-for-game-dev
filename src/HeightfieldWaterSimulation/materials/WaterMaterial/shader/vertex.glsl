@@ -1,8 +1,8 @@
 uniform sampler2D tHeightfield;
 
-varying float fresnelFactor;
-varying vec3 reflectedDir;
-varying vec2 chromaticAberrationUV[3];
+varying float vFresnelFactor;
+varying vec3 vReflectedDir;
+varying vec2 vChromaticAberrationUV[3];
 
 #define AIR_IOR 1.0
 #define WATER_IOR 1.333
@@ -22,24 +22,24 @@ void main () {
   // 计算折射向量
   vec3 refractedDir = normalize(refract(eye, normWorld, eta));
   // 计算反射向量
-  reflectedDir = normalize(reflect(eye, normWorld));
+  vReflectedDir = normalize(reflect(eye, normWorld));
 
   // 计算菲涅耳系数
   const float f0 = pow((AIR_IOR - WATER_IOR) / (AIR_IOR + WATER_IOR), 2.0);
-  fresnelFactor = f0 + (1.0 - f0) * pow(1.0 - dot(-eye, normWorld), 5.0);
+  vFresnelFactor = f0 + (1.0 - f0) * pow(1.0 - dot(-eye, normWorld), 5.0);
 
   mat4 VP = projectionMatrix * viewMatrix;
 
   // 计算色差 (chromatic aberration), 模拟不同波长的光对折射率的影响
   float etaGrad = 0.04;        // Chromatic Aberration Factor
   vec4 refractedPos = VP * normalize(vec4(posWorld + refractedDir, 1.0));
-  chromaticAberrationUV[0] = refractedPos.xy / refractedPos.w * 0.5 + 0.5;
+  vChromaticAberrationUV[0] = refractedPos.xy / refractedPos.w * 0.5 + 0.5;
 
   refractedPos = VP * normalize(vec4(posWorld + normalize(refract(eye, normWorld, eta * (1.0 - etaGrad))), 1.0));
-  chromaticAberrationUV[1] = refractedPos.xy / refractedPos.w * 0.5 + 0.5;
+  vChromaticAberrationUV[1] = refractedPos.xy / refractedPos.w * 0.5 + 0.5;
 
   refractedPos = VP * normalize(vec4(posWorld + normalize(refract(eye, normWorld, eta * (1.0 - etaGrad * 2.0))), 1.0));
-  chromaticAberrationUV[2] = refractedPos.xy / refractedPos.w * 0.5 + 0.5;
+  vChromaticAberrationUV[2] = refractedPos.xy / refractedPos.w * 0.5 + 0.5;
 
   gl_Position = VP * vec4(posWorld, 1.);
 

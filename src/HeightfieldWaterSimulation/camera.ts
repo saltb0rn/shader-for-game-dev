@@ -1,5 +1,4 @@
 import * as THREE from 'three'
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import Access from './access.ts'
 
 
@@ -11,12 +10,7 @@ export default class {
     }
 
     initCamera() {
-        // Access.cameraCtl = new OrbitControls(Access.camera!, Access.outputContainer!)
-        Access.camera!.position.set(0, 1.5, 0.)
-        // Access.camera!.up.set(.0, 0., 1.)
-        // Access.gui.add( Access.camera!.rotation, 'x', 0, Math.PI * 2 )
-        // Access.gui.add( Access.camera!.rotation, 'y', 0, Math.PI * 2 )
-        // Access.gui.add( Access.camera!.rotation, 'z', 0, Math.PI * 2 )
+        Access.camera!.position.set(0, 5., 0.)
     }
 
     dispose() {

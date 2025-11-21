@@ -11,7 +11,7 @@ import WaterMaterial from './materials/WaterMaterial'
 import UnderWaterMaterial from './materials/UnderWaterMaterial'
 
 import { OBJLoader } from 'three/addons/loaders/OBJLoader.js'
-import { TextureHelper } from 'three/examples/jsm/helpers/TextureHelper.js'
+// import { TextureHelper } from 'three/examples/jsm/helpers/TextureHelper.js'
 
 import duskPx from './textures/dusk/px.png'
 import duskPy from './textures/dusk/py.png'

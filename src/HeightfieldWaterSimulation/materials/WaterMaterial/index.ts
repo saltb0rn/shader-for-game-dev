@@ -12,7 +12,7 @@ export default class extends THREE.ShaderMaterial {
                 tEnvMap: { value: null }
             },
             vertexShader,
-            fragmentShader            
+            fragmentShader
         })
         // this.side = THREE.DoubleSide
     }
