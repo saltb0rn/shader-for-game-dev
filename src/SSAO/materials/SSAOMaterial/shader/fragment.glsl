@@ -110,11 +110,11 @@ void main() {
 
         但相机是看向屏幕内的, 所以用视点坐标的 z 分量作为深度需要对它乘以 -1 进行翻转.
       */
-      float cloestDepth = -info.z;
+      float closestDepth = -info.z;
       float samplePointDepth = -samplePointView.z;
       // 结合采样点与顶点之间的距离计算被遮蔽的程度
       float rangeCheck = smoothstep(1., 0., length(info.xyz - origin.xyz) / radius);
-      openness -= (cloestDepth <= samplePointDepth ? 1.: 0.) * rangeCheck * avg;
+      openness -= (closestDepth <= samplePointDepth ? 1.: 0.) * rangeCheck * avg;
     }
 
     gl_FragColor = vec4(vec3(openness), 1.);
