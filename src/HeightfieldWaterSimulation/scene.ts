@@ -45,7 +45,7 @@ export default class Scene {
         const heightfieldSizeX = 512
         const heightfieldSizeY = 512
 
-        const underWaterEnvMapTarget = new THREE.WebGLRenderTarget(heightfieldSizeX * 3., heightfieldSizeY * 3.)
+        const underWaterEnvMapTarget = new THREE.WebGLRenderTarget(heightfieldSizeX, heightfieldSizeY)
 
         const waterHeightfield = new WaterHeightfield()
 
