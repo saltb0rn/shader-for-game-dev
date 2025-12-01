@@ -44,10 +44,11 @@ export default class Scene {
         const waterHeight = 8.0, waterHalfHeight = waterHeight * 0.5
         const heightfieldSizeX = 512
         const heightfieldSizeY = 512
+        const textureSize = 512
 
         const underWaterEnvMapTarget = new THREE.WebGLRenderTarget(heightfieldSizeX, heightfieldSizeY)
 
-        const waterHeightfield = new WaterHeightfield()
+        const waterHeightfield = new WaterHeightfield(textureSize, textureSize)
 
         const water = new THREE.Mesh(
             new THREE.PlaneGeometry(waterWidth, waterHeight,
@@ -82,10 +83,12 @@ export default class Scene {
             light.shadow.camera.updateProjectionMatrix()
         }
 
-        const envMapSM = new EnvMapShadowMapping(1024, 1024)
+        const envMapSM = new EnvMapShadowMapping(textureSize, textureSize)
         const underWaterMaterial = new UnderWaterMaterial()
-        const caustics = new Caustics(waterWidth, waterHeight)
-        const refractedLightMap = new RefractedLight(waterWidth, waterHeight)
+        const caustics = new Caustics(
+            waterWidth, waterHeight, textureSize, textureSize)
+        const refractedLightMap = new RefractedLight(
+            waterWidth, waterHeight, textureSize, textureSize)
 
         const objLoader = new OBJLoader()
 

@@ -40,7 +40,7 @@ void main () {
   vec2 dFrag = refractedScreen / max(abs(refractedScreen.x), abs(refractedScreen.y));
   float dW = length(dFrag) / length(refractedScreen) * refractedUVW.z;
   // tEnvShadowMap 以裁剪坐标的 z 分量作为深度, 所以要把 NDC 中的深度变化还原到裁剪空间上
-  vec3 delta = vec3(dFrag, dW * 2.0);
+  vec3 delta = vec3(dFrag, dW * 2.0) * 0.1;
 
   vec2 currentPos = (waterPosClip.xy * 0.5 + 0.5) * uResolution;
   float currentDepth = waterPosClip.z;
