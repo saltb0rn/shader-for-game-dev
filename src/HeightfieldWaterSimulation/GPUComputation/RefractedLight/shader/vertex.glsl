@@ -24,5 +24,5 @@ void main () {
 
   vRefracted = refractedDirWorld;
 
-  gl_Position = VP * uWaterModelMatrix * vec4(position - vec3(0., 0., 0.001), 1.);
+  gl_Position = VP * uWaterModelMatrix * vec4(position + vec3(0., 0., 0.001), 1.);
 }
