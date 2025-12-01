@@ -39,9 +39,9 @@ void main () {
   vec2 refractedScreen = refractedUVW.xy * uResolution;
   vec2 dFrag = refractedScreen / max(abs(refractedScreen.x), abs(refractedScreen.y));
   float dW = length(dFrag) / length(refractedScreen) * refractedUVW.z;
-  vec3 delta = vec3(dFrag, dW * 2.) * 0.1;
+  // tEnvShadowMap 以裁剪坐标的 z 分量作为深度, 所以要把 NDC 中的深度变化还原到裁剪空间上
+  vec3 delta = vec3(dFrag, dW * 2.0);
 
-  // tEnvShadowMap 以 ndc 的 z 分量作为深度, 由于是正交相机, ndc 的 z 分量之间可以进行线性插值
   vec2 currentPos = (waterPosClip.xy * 0.5 + 0.5) * uResolution;
   float currentDepth = waterPosClip.z;
   vec2 deltaDirection = delta.xy;

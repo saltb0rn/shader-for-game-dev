@@ -29,6 +29,7 @@ void main () {
   float closestDepth = info.w;
 
   float bias = 0.01;
+  // 只有未被遮蔽的情况下才应用焦散
   if (closestDepth > depth - bias) {
 
     float causticsIntensity = 0.5 * (
