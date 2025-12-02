@@ -42,17 +42,14 @@ export default class Scene {
 
         const waterWidth = 8.0, waterHalfWidth = waterWidth * 0.5
         const waterHeight = 8.0, waterHalfHeight = waterHeight * 0.5
-        const heightfieldSizeX = 512
-        const heightfieldSizeY = 512
         const textureSize = 512
 
-        const underWaterEnvMapTarget = new THREE.WebGLRenderTarget(heightfieldSizeX, heightfieldSizeY)
+        const underWaterEnvMapTarget = new THREE.WebGLRenderTarget(textureSize, textureSize)
 
         const waterHeightfield = new WaterHeightfield(textureSize, textureSize)
 
         const water = new THREE.Mesh(
-            new THREE.PlaneGeometry(waterWidth, waterHeight,
-                                    heightfieldSizeX, heightfieldSizeY),
+            new THREE.PlaneGeometry(waterWidth, waterHeight, textureSize, textureSize),
             new WaterMaterial())
         {
             water.material.setSkyBox(skybox)
