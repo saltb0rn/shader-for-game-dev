@@ -15,7 +15,7 @@ varying float vHitPointDepth;   // 交点的深度
 
 #define AIR_IOR 1.0
 #define WATER_IOR 1.325
-#define MAX_ITERATIONS 100
+#define MAX_ITERATIONS 50
 
 void main () {
   vec4 info = texture2D(tHeightfield, uv);
