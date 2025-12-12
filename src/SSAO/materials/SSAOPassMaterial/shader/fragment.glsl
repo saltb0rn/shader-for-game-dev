@@ -12,7 +12,7 @@ void main() {
   float ssao = 0.0;
   float avg = 1. / float(blurSize * blurSize);
 
-  // 盒装模糊
+  // 盒状模糊
   for (int row = -halfSize; row <= halfSize; row++) {
 
     float y = float(row);

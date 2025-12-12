@@ -1,8 +1,14 @@
 import './style.css'
 import { World } from './SSAO'
 
+declare global {
+    interface Window {
+        world: World
+    }
+}
+
 const canvasWrapper = document.querySelector<HTMLDivElement>('#canvas')!
-new World(canvasWrapper)
+window.world = new World(canvasWrapper)
 
 const btnSave = document.querySelector<HTMLButtonElement>('#frameshot')!
 btnSave.addEventListener('click', () => {
@@ -13,3 +19,5 @@ btnSave.addEventListener('click', () => {
     link.href = canvas.toDataURL('image/png')
     link.click()
 })
+
+

@@ -9,7 +9,9 @@ export default class {
     }
 
     initCamera() {
-        Access.camera!.position.set(.0, 1., 10.)
+        // Access.camera!.position.set(.0, 1., 10.)
+        Access.camera!.position.set(
+            3.8213544494756775, 3.335408017118153, 5.569024609532682)
         Access.camera!.lookAt(.0, .0, 0)
     }
 
@@ -17,6 +19,9 @@ export default class {
         if (Access.camera) {
             Access.camera = undefined
         }
+    }
 
+    getCamera() {
+        return Access.camera
     }
 }
