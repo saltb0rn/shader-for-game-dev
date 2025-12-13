@@ -3,11 +3,12 @@ import { World } from './SSAO'
 
 declare global {
     interface Window {
-        world: World
+        world: any
     }
 }
 
 const canvasWrapper = document.querySelector<HTMLDivElement>('#canvas')!
+
 window.world = new World(canvasWrapper)
 
 const btnSave = document.querySelector<HTMLButtonElement>('#frameshot')!
