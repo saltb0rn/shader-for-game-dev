@@ -9,12 +9,16 @@ export default class MoebiusPass extends Pass {
     customGenNormalTexture?: (normalFBO: THREE.WebGLRenderTarget) => void
     private normalFBO: THREE.WebGLRenderTarget
     private normalMaterial: MeshNormalMaterial
+    private scene: THREE.Scene
+    private camera: THREE.PerspectiveCamera
 
-    constructor(private scene: THREE.Scene,
-                private camera: THREE.PerspectiveCamera,
+    constructor(scene: THREE.Scene,
+                camera: THREE.PerspectiveCamera,
                 width: number, height: number) {
         super()
 
+        this.scene = scene
+        this.camera = camera
         this.material = new MoebiusMaterial()
         this.material.uniforms.uResolution.value = new THREE.Vector2(width, height)
         this.fsQuad = new FullScreenQuad(this.material)
