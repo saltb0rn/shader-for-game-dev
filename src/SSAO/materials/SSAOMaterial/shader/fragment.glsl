@@ -75,6 +75,7 @@ void main() {
 
       这里的深度已经完成了这种"适配".
     */
+    // 也可以用 -origin.z >= uFar 做判断
     gl_FragColor = vec4(1.0);
 
   } else {
