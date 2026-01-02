@@ -60,22 +60,14 @@ void main() {
   vec2 uv = vUV;
   vec4 origin = texture2D(tViewPosition, uv);
 
-  // 计算顶点在成像相机中的深度
-  vec4 posClip = uProjectionMatrix * origin;
-  float depth = (posClip.z / posClip.w) * .5 + .5;
-
-  if (depth >= 1.0) {
-
+  if (origin.w <= 0.0) {
     /*
       找出背景片元(即并非根据顶点得到的片元), 不对背景做遮蔽处理.
 
-      这里把深度接近远裁剪平面的片元认为是背景片元, 即深度为 1 的片元.
+      在生成位置贴图时需要设置默认透明度通道为 0, 如果片元的透明度不为 0,
 
-      做深度判断时, 如果是用正交相机成像, 用线性深度判断; 如果是用透视相机成像, 用非线性深度判断;
-
-      这里的深度已经完成了这种"适配".
+      那么就说明片元上存在顶点信息, 否则片元就为背景片元.
     */
-    // 也可以用 -origin.z >= uFar 做判断
     gl_FragColor = vec4(1.0);
 
   } else {

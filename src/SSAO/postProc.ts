@@ -10,16 +10,18 @@ export default class {
     private target?: THREE.WebGLRenderTarget
     constructor() {
 
-        const width = Access.renderer!.domElement.width,
-              height = Access.renderer!.domElement.height,
-              samples = 8
+        // 因为这时渲染器可能还未同步画布的大小, 所以这里直接从画布取大小作为 FBO 的尺寸
+        const pixelRatio = Math.min(window.devicePixelRatio, 1)
+        const width = Math.floor(Access.outputContainer!.clientWidth * pixelRatio)
+        const height = Math.floor(Access.outputContainer!.clientHeight * pixelRatio)
+        const samples = 8
 
         this.target = new THREE.WebGLRenderTarget(width, height, { samples })
 
         Access.postProcesser = new EffectComposer(Access.renderer!, this.target)
 
         const ssaoPass = new SSAOPass(Access.scene!, Access.camera!,
-                                      width * samples, height * samples)
+                                      width, height)
 
         Access.postProcesser.addPass(new RenderPass(Access.scene!, Access.camera!));
         Access.postProcesser.addPass(ssaoPass)

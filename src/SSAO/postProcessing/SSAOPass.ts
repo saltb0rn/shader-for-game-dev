@@ -92,22 +92,36 @@ export default class extends Pass {
 
         // 生成视点空间的顶点贴图
         {
+            // 如果有场景背景, 请临时去掉背景, 否则 SSAO 的 shader 不好写
+            const oldBackground = this.scene.background
+            this.scene.background = null
+            // 用透明度为 0 进行填充, 在 SSAO shader 中会根据透明度来判断片元是否存在位置信息
+            const oldClearAlpha = renderer.getClearAlpha()
+            renderer.setClearAlpha(0)
             let oldMaterial = this.scene.overrideMaterial
             this.scene.overrideMaterial = this.positionMaterial
             renderer.setRenderTarget(this.positionFBO)
             renderer.render(this.scene, this.camera)
             this.scene.overrideMaterial = oldMaterial
             renderer.setRenderTarget(null)
+            this.scene.background = oldBackground
+            renderer.setClearAlpha(oldClearAlpha)
         }
 
         // 生成视点空间的法线贴图
         {
+            const oldBackground = this.scene.background
+            this.scene.background = null
+            const oldClearAlpha = renderer.getClearAlpha()
+            renderer.setClearAlpha(0)
             let oldMaterial = this.scene.overrideMaterial
             this.scene.overrideMaterial = this.normalMaterial
             renderer.setRenderTarget(this.normalFBO)
             renderer.render(this.scene, this.camera)
             this.scene.overrideMaterial = oldMaterial
             renderer.setRenderTarget(null)
+            this.scene.background = oldBackground
+            renderer.setClearAlpha(oldClearAlpha)
         }
 
         // 生成 SSAO 贴图
