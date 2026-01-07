@@ -13,7 +13,10 @@ export default class {
         if (!textureSizeY) textureSizeY = 512
 
         this.target = new THREE.WebGLRenderTarget(
-            textureSizeX, textureSizeY, { type: THREE.FloatType })
+            textureSizeX, textureSizeY, { type: THREE.FloatType,
+                                          magFilter: THREE.NearestFilter,
+                                          minFilter: THREE.NearestFilter
+                                        })
         this._quad = new THREE.Mesh(
             new THREE.PlaneGeometry(planeSizeX, planeSizeY, textureSizeX, textureSizeY),
             new THREE.ShaderMaterial({

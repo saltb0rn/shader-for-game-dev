@@ -52,7 +52,14 @@ void main () {
     vec4 smInfo = texture2D(tEnvShadowMap, uv);
     vHitPoint = smInfo.xyz;
 
-    if (smInfo.w <= currentDepth) {
+    /*
+      在一些场景布局中, 当 i = 0 时, currentPos = (waterPosClip.xy * 0.5 + 0.5) * uResolution,
+
+       这时候使用 smInfo.w <= currentDepth 进行深度判断容易出现自相交的情况,
+
+       因此尽量使用 smInfo.w < currentDepth 进行深度判断
+     */
+    if (smInfo.w < currentDepth) {
       break;
     }
 
