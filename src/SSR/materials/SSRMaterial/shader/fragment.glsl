@@ -48,12 +48,12 @@ vec3 getViewPosition( vec2 uv, float viewZ ) {
   return ( uInverseProjectionMatrix * clip ).xyz;
 }
 
-float chash11(float p) {
-  p = fract(p * .1031);
-  p *= p + 33.33;
-  p *= p + p;
-  return fract(p);
-}
+// float chash11(float p) {
+//   p = fract(p * .1031);
+//   p *= p + 33.33;
+//   p *= p + p;
+//   return fract(p);
+// }
 
 void main() {
   vec4 normalInfo = texture2D(tViewNormal, vUV);
