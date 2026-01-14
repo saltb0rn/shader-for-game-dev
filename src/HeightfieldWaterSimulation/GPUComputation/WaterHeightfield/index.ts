@@ -44,9 +44,15 @@ export default class {
         )
 
         this._targetA = new THREE.WebGLRenderTarget(
-            textureSizeX, textureSizeY, { type: THREE.FloatType })
+            textureSizeX, textureSizeY, { type: THREE.FloatType,
+                                          magFilter: THREE.NearestFilter,
+                                          minFilter: THREE.NearestFilter
+                                        })
         this._targetB = new THREE.WebGLRenderTarget(
-            textureSizeX, textureSizeY, { type: THREE.FloatType })
+            textureSizeX, textureSizeY, { type: THREE.FloatType,
+                                          magFilter: THREE.NearestFilter,
+                                          minFilter: THREE.NearestFilter
+                                        })
         this.target = this._targetA
     }
 
