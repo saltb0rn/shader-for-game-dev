@@ -74,7 +74,7 @@ void main() {
   // 粗糙度模拟
   // float roughness = positionInfo.w;
   // float jitt = mix(0., chash11(roughness), roughness);
-  // reflectView += vec3(jitt) / 30.;
+  // reflectView += vec3(jitt) / 20.;
   // reflectView = normalize(reflectView);
 
   // 计算当前反射方向最大的长度
